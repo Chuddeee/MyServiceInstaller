@@ -14,17 +14,17 @@ namespace MyService
         if(ServiceInstall.Install<ProjectInstaller>(args)) {
           return SuccessExitCode;
         } else if(CommandLine.Contains(args, CommandLine.Service)) {
-          return StartService();
+          return StartService(args);
         } else {
-          return StartConsole();
+          return StartConsole(args);
         }//if
       } catch(Exception ex) {
         Console.WriteLine(ex);
-        return FailedExitCode;
+        throw;
       }//try
     }
 
-    private static int StartService() {
+    private static int StartService(string[] args) {
       using(var service = new MyService()) {
         //Debugger.Break();
         ServiceBase.Run(service);
@@ -32,7 +32,7 @@ namespace MyService
       }//using
     }
 
-    private static int StartConsole() {
+    private static int StartConsole(string[] args) {
       Console.Write("Service started. Press <Enter> for stop service and exit.");
       Console.ReadLine();
       return SuccessExitCode;

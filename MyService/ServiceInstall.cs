@@ -25,7 +25,7 @@ namespace MyService
 
     private const string CommandParameter = "Command";
 
-    private const char DependedOnDelimeter = ';';
+    private static readonly char[] DependedOnDelimeters = { ';' };
 
     private const char Space = ' ';
     private const char DoubleQuote = '"';
@@ -103,7 +103,7 @@ namespace MyService
 
         ApplyEnumParameter<ServiceStartMode>(context, StartTypeParameter, value => installer.StartType = value);
         ApplyParameter(context, DelayedAutoStartParameter, Boolean.Parse, value => installer.DelayedAutoStart = value);
-        ApplyParameter(context, DependedOnParameter, value => installer.ServicesDependedOn = value.Split(DependedOnDelimeter));
+        ApplyParameter(context, DependedOnParameter, value => installer.ServicesDependedOn = value.Split(DependedOnDelimeters, StringSplitOptions.RemoveEmptyEntries));
       }//if
     }
 
