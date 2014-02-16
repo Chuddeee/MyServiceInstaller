@@ -23,7 +23,7 @@ Set UserName=
 Set Password=
 Set Command=/Additional -Parameters
 
-Set Install=/Install
+Set Install=%~1
 
 @If "%~1" == "" (
   Set Install=/Install
